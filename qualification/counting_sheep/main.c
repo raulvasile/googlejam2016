@@ -8,11 +8,12 @@
 
 #include "utils.h"
 
-int solve(int number, FILE *output, int *digits) {
-  int acc = 1;
+unsigned long long solve(int number, FILE *output, int *digits) {
+  unsigned long acc = 1;
 
-  while(diffzero(digits, 10) == 0 && acc <= 1000) {
-    int aux = number * acc;
+  // Could not find a limit for acc, so basically I go to the limit of ulonglong
+  while(diffzero(digits, 10) == 0 && acc <= 99999999) {
+    unsigned long long aux = number * acc;
 
     while(aux > 0) {
       digits[aux % 10]++;
@@ -34,8 +35,9 @@ int main(int argc, char *argv[]) {
 
   FILE *input, *output;
 
-  int length, i, number, rc;
+  int length, i, number;
   int *vect;
+  unsigned long long rc;
 
   input = fopen(argv[1], "r");
   output = fopen(argv[2], "a");
@@ -67,7 +69,7 @@ int main(int argc, char *argv[]) {
       if (rc == -1) {
         fprintf(output, "Case #%d: INSOMNIA\n", i + 1);
       } else {
-        fprintf(output, "Case #%d: %d\n", i + 1, rc);
+        fprintf(output, "Case #%d: %llu\n", i + 1, rc);
       }
     }
   }
